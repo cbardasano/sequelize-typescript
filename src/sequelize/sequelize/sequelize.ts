@@ -33,12 +33,13 @@ export class Sequelize extends OriginSequelize {
   }
 
   model<TCreationAttributes extends {}, TModelAttributes extends {}>(
-    model: string | ModelType<TCreationAttributes, TModelAttributes>
+    model: string | ModelType<TCreationAttributes, TModelAttributes>,
+    options?: { caseSensitive?: boolean }
   ): ModelCtor {
     if (typeof model !== 'string') {
-      return super.model(getModelName(model.prototype)) as ModelCtor;
+      return super.model(getModelName(model.prototype), options) as ModelCtor;
     }
-    return super.model(model) as ModelCtor;
+    return super.model(model, options) as ModelCtor;
   }
 
   addModels(models: ModelCtor[]): void;
